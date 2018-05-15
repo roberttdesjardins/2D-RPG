@@ -27,17 +27,54 @@ class GameScene: SKScene {
     
     private var inWorld = false  // If go into battle, event, menu, inventory, inWorld becomes false
     
+    // Background
+    let background1 = SKSpriteNode(imageNamed: "glacial_mountains_lightened")
+    let background2 = SKSpriteNode(imageNamed: "glacial_mountains_lightened")
+    
     override func sceneDidLoad() {
         inWorld = true
         addChild(worldNode)
         self.lastUpdateTime = 0
         setUpPlayer()
+        setupBackground()
+    }
+    
+    func setupBackground() {
+        background1.anchorPoint = CGPoint(x: 0, y: 0)
+        background1.position = CGPoint(x: 0, y: 0)
+        background1.zPosition = -15
+        background1.size.width = size.width
+        background1.size.height = background1.size.width * 0.5625
+        worldNode.addChild(background1)
+        
+        background2.anchorPoint = CGPoint(x: 0, y: 0)
+        background2.position = CGPoint(x: background1.size.width, y: 0)
+        background2.zPosition = -15
+        background2.size.width = size.width
+        background2.size.height = background2.size.width * 0.5625
+        worldNode.addChild(background2)
+    }
+    
+    // If the player is "Moving", move the background to the right but keep the player in same spot
+    func updateBackground() {
+        background1.position = CGPoint(x: background1.position.x - 1, y: background1.position.y)
+        background2.position = CGPoint(x: background2.position.x - 1, y: background2.position.y)
+        
+        if(background1.position.x < 0 - background1.size.width)
+        {
+            background1.position = CGPoint(x: background2.position.x + background2.size.width, y: background2.position.y)
+        }
+        
+        if(background2.position.x < 0 - background2.size.width)
+        {
+            background2.position = CGPoint(x: background1.position.x + background2.size.width, y: background1.position.y)
+        }
     }
     
     func setUpPlayer() {
         let player:Player = Player(imageNamed: "player_idle_frame_0_delay-0.13s")
         player.initPlayer()
-        player.position = CGPoint(x: size.width * (1/2), y: size.height * (1/6))
+        player.position = CGPoint(x: size.width * (1/4), y: size.height * (1/6))
         worldNode.addChild(player)
         playerIdleAnim(player: player)
     }
@@ -60,10 +97,6 @@ class GameScene: SKScene {
         player.run(SKAction.repeatForever(SKAction.animate(with: gifRunning, timePerFrame: 0.07)))
     }
     
-    // TODO: If the player is "Moving", move the background to the right but keep the player in same spot
-    func moveBackground() {
-        
-    }
     
     func choosePlayerAnimation() {
         if let player = worldNode.childNode(withName: GameData.shared.kPlayerName) as? Player{
@@ -72,7 +105,6 @@ class GameScene: SKScene {
             } else {
                 playerIdleAnim(player: player)
             }
-            
         }
     }
     
@@ -125,6 +157,10 @@ class GameScene: SKScene {
             }
             playerStateChanged = false
             choosePlayerAnimation()
+        }
+        
+        if touchToMove {
+            updateBackground()
         }
         
     }
