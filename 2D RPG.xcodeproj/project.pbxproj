@@ -21,6 +21,8 @@
 		5580EAF520AA347900304895 /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5580EAF420AA347900304895 /* GameData.swift */; };
 		5580EAF720AA347F00304895 /* UserDefaultExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5580EAF620AA347F00304895 /* UserDefaultExt.swift */; };
 		5580EAF920AA34A000304895 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5580EAF820AA34A000304895 /* GameOverScene.swift */; };
+		55B0335520AB9AE100A40BA5 /* BattleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B0335420AB9AE100A40BA5 /* BattleScene.swift */; };
+		55B0335820AB9C3E00A40BA5 /* Free-GUI-Buttons-039.wav in Resources */ = {isa = PBXBuildFile; fileRef = 55B0335720AB9C3E00A40BA5 /* Free-GUI-Buttons-039.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +63,8 @@
 		5580EAF420AA347900304895 /* GameData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
 		5580EAF620AA347F00304895 /* UserDefaultExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultExt.swift; sourceTree = "<group>"; };
 		5580EAF820AA34A000304895 /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
+		55B0335420AB9AE100A40BA5 /* BattleScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleScene.swift; sourceTree = "<group>"; };
+		55B0335720AB9C3E00A40BA5 /* Free-GUI-Buttons-039.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Free-GUI-Buttons-039.wav"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,9 +115,11 @@
 		5580EAB920A91A0500304895 /* 2D RPG */ = {
 			isa = PBXGroup;
 			children = (
+				55B0335620AB9C2200A40BA5 /* Audio */,
 				5580EABA20A91A0500304895 /* AppDelegate.swift */,
 				5580EACC20A91A0600304895 /* Info.plist */,
 				5580EAC020A91A0500304895 /* GameScene.swift */,
+				55B0335420AB9AE100A40BA5 /* BattleScene.swift */,
 				5580EAF820AA34A000304895 /* GameOverScene.swift */,
 				5580EAC220A91A0500304895 /* GameViewController.swift */,
 				5580EAEE20AA344800304895 /* Player.swift */,
@@ -144,6 +150,14 @@
 				5580EAE220A91A0600304895 /* Info.plist */,
 			);
 			path = "2D RPGUITests";
+			sourceTree = "<group>";
+		};
+		55B0335620AB9C2200A40BA5 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				55B0335720AB9C3E00A40BA5 /* Free-GUI-Buttons-039.wav */,
+			);
+			path = Audio;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -251,6 +265,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5580EAC620A91A0500304895 /* Main.storyboard in Resources */,
+				55B0335820AB9C3E00A40BA5 /* Free-GUI-Buttons-039.wav in Resources */,
 				5580EAC820A91A0600304895 /* Assets.xcassets in Resources */,
 				5580EACB20A91A0600304895 /* LaunchScreen.storyboard in Resources */,
 			);
@@ -279,6 +294,7 @@
 			files = (
 				5580EAEF20AA344800304895 /* Player.swift in Sources */,
 				5580EAF320AA347300304895 /* Helpers.swift in Sources */,
+				55B0335520AB9AE100A40BA5 /* BattleScene.swift in Sources */,
 				5580EAC120A91A0500304895 /* GameScene.swift in Sources */,
 				5580EAF120AA346B00304895 /* PhysicsCategory.swift in Sources */,
 				5580EAF720AA347F00304895 /* UserDefaultExt.swift in Sources */,

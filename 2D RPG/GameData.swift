@@ -20,6 +20,9 @@ class GameData {
     var playerHighScore: [Int] = []
     var creditsEarned: Int = 0
     var totalCredits: Int = 0
+    
+    var playerAttack1 = "Slash"
+    var playerAttack2 = "Bash"
 
     private init() { }
 }

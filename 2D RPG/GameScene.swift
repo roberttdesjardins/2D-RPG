@@ -6,7 +6,7 @@
 //  Copyright © 2018 Robert Desjardins. All rights reserved.
 //
 // Game Idea:
-// 2D Pixel Art game Rogue Like
+// 2D Pixel Art Rogue Like Game
 // Player is slightly on the left of the screen
 // Hold down screen to move forward
 // Button for inventory
@@ -14,11 +14,18 @@
 // Can choose to interact with some objects (House, go in?, Artifact, touch it?)
 // In battle, choose a move, or run
 
+// TODO:
+// Give player health
+// Create monsters which are passed to BattleScene
+// Create Inventory
+
 import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene {
     let worldNode = SKNode()
+    
+    private var scoreLabel = SKLabelNode(fontNamed: "Avenir")
     
     private var lastUpdateTime : TimeInterval = 0
     
@@ -37,6 +44,7 @@ class GameScene: SKScene {
         self.lastUpdateTime = 0
         setUpPlayer()
         setupBackground()
+        setUpHud()
     }
     
     func setupBackground() {
@@ -53,6 +61,27 @@ class GameScene: SKScene {
         background2.size.width = size.width
         background2.size.height = background2.size.width * 0.5625
         worldNode.addChild(background2)
+    }
+    
+    func setUpHud() {
+        scoreLabel.fontSize = 15
+        scoreLabel.fontColor = SKColor.white
+        scoreLabel.text = String("Score: \(GameData.shared.playerScore)")
+        
+        //TODO: Test this on iphoneX
+        if UIScreen.main.nativeBounds.height == 2436.0 {
+            scoreLabel.position = CGPoint(x: 0, y: size.height - (scoreLabel.frame.size.height + 22))
+        } else {
+            scoreLabel.position = CGPoint(x: 0, y: size.height - scoreLabel.frame.size.height)
+        }
+        
+        scoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
+        scoreLabel.zPosition = 20
+        addChild(scoreLabel)
+    }
+    
+    func updateHud(){
+        scoreLabel.text = String("Score: \(GameData.shared.playerScore)")
     }
     
     // If the player is "Moving", move the background to the right but keep the player in same spot
@@ -160,6 +189,8 @@ class GameScene: SKScene {
         }
         
         if touchToMove {
+            GameData.shared.playerScore = GameData.shared.playerScore + 1
+            updateHud()
             updateBackground()
         }
         

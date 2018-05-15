@@ -11,6 +11,8 @@ import SpriteKit
 import Foundation
 import AVFoundation
 
+private var buttonSoundPlayer: AVAudioPlayer!
+
 let Pi = CGFloat(Double.pi)
 let DegreesToRadians = Pi / 180
 let RadiansToDegrees = 180 / Pi
@@ -90,6 +92,19 @@ func / (point: CGPoint, scalar: CGFloat) -> CGPoint {
 
 func - (left: CGSize, right: CGSize) -> CGSize {
     return CGSize(width: left.width - right.width, height: left.height - right.height)
+}
+
+func playButtonPressSound() {
+    let path = Bundle.main.path(forResource: "Free-GUI-Buttons-039", ofType: "wav")!
+    let url = URL(fileURLWithPath: path)
+    do {
+        buttonSoundPlayer = try AVAudioPlayer(contentsOf: url)
+        buttonSoundPlayer.numberOfLoops = 0
+        buttonSoundPlayer.prepareToPlay()
+    } catch let error as NSError {
+        print(error.description)
+    }
+    buttonSoundPlayer.play()
 }
 
 
