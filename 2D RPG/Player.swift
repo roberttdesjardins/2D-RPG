@@ -14,8 +14,8 @@ import AVFoundation
 class Player: SKSpriteNode {
     
     var runSpeed:CGFloat =  3
-    var playerWidth:CGFloat = 40
-    var playerHeight:CGFloat = 40
+    var playerWidth:CGFloat = 38
+    var playerHeight:CGFloat = 48
     
     func initPlayer() {
         self.size = CGSize(width: playerWidth, height: playerHeight)

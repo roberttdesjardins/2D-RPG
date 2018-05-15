@@ -22,7 +22,13 @@ class GameScene: SKScene {
     
     private var lastUpdateTime : TimeInterval = 0
     
+    private var playerStateChanged = true
+    private var touchToMove = false
+    
+    private var inWorld = false  // If go into battle, event, menu, inventory, inWorld becomes false
+    
     override func sceneDidLoad() {
+        inWorld = true
         addChild(worldNode)
         self.lastUpdateTime = 0
         setUpPlayer()
@@ -37,6 +43,7 @@ class GameScene: SKScene {
     }
     
     func playerIdleAnim(player: Player) {
+        player.size.width = 38
         var gifIdle: [SKTexture] = []
         for i in 0...3 {
             gifIdle.append(SKTexture(imageNamed: "player_idle_frame_\(i)_delay-0.13s"))
@@ -45,6 +52,7 @@ class GameScene: SKScene {
     }
     
     func playerRunningAnim(player: Player) {
+        player.size.width = 66
         var gifRunning: [SKTexture] = []
         for i in 0...11 {
             gifRunning.append(SKTexture(imageNamed: "player_running_frame_\(i)_delay-0.07s"))
@@ -52,6 +60,52 @@ class GameScene: SKScene {
         player.run(SKAction.repeatForever(SKAction.animate(with: gifRunning, timePerFrame: 0.07)))
     }
     
+    // TODO: If the player is "Moving", move the background to the right but keep the player in same spot
+    func moveBackground() {
+        
+    }
+    
+    func choosePlayerAnimation() {
+        if let player = worldNode.childNode(withName: GameData.shared.kPlayerName) as? Player{
+            if touchToMove {
+                playerRunningAnim(player: player)
+            } else {
+                playerIdleAnim(player: player)
+            }
+            
+        }
+    }
+    
+    
+    func touchDown(atPoint pos : CGPoint) {
+        if inWorld {
+            touchToMove = true
+            playerStateChanged = true
+        }
+    }
+    
+    func touchUp(atPoint pos : CGPoint) {
+        touchToMove = false
+        playerStateChanged = true
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for touch in touches {
+            touchDown(atPoint: touch.location(in: view))
+        }
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for touch in touches {
+            touchUp(atPoint: touch.location(in: view))
+        }
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for touch in touches {
+            touchUp(atPoint: touch.location(in: view))
+        }
+    }
     
     
     
@@ -63,6 +117,15 @@ class GameScene: SKScene {
         }
         
         // Calculate time since last update
-        let dt = currentTime - self.lastUpdateTime
+        //let dt = currentTime - self.lastUpdateTime
+        
+        if playerStateChanged {
+            if let player = worldNode.childNode(withName: GameData.shared.kPlayerName) as? Player{
+                player.removeAllActions()
+            }
+            playerStateChanged = false
+            choosePlayerAnimation()
+        }
+        
     }
 }
