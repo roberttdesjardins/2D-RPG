@@ -23,16 +23,36 @@ class GameScene: SKScene {
     private var lastUpdateTime : TimeInterval = 0
     
     override func sceneDidLoad() {
+        addChild(worldNode)
         self.lastUpdateTime = 0
-        
+        setUpPlayer()
     }
     
     func setUpPlayer() {
-        let player:Player = Player(imageNamed: "player_frame_0_delay-0.13s")
+        let player:Player = Player(imageNamed: "player_idle_frame_0_delay-0.13s")
         player.initPlayer()
         player.position = CGPoint(x: size.width * (1/2), y: size.height * (1/6))
         worldNode.addChild(player)
+        playerIdleAnim(player: player)
     }
+    
+    func playerIdleAnim(player: Player) {
+        var gifIdle: [SKTexture] = []
+        for i in 0...3 {
+            gifIdle.append(SKTexture(imageNamed: "player_idle_frame_\(i)_delay-0.13s"))
+        }
+        player.run(SKAction.repeatForever(SKAction.animate(with: gifIdle, timePerFrame: 0.13)))
+    }
+    
+    func playerRunningAnim(player: Player) {
+        var gifRunning: [SKTexture] = []
+        for i in 0...11 {
+            gifRunning.append(SKTexture(imageNamed: "player_running_frame_\(i)_delay-0.07s"))
+        }
+        player.run(SKAction.repeatForever(SKAction.animate(with: gifRunning, timePerFrame: 0.07)))
+    }
+    
+    
     
     
     override func update(_ currentTime: TimeInterval) {
