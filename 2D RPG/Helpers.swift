@@ -25,6 +25,14 @@ func gameOverSceneLoad(view: UIView) {
     skView.presentScene(scene, transition: SKTransition.doorsOpenHorizontal(withDuration: 1.0))
 }
 
+func battleSceneLoad(view: UIView) {
+    let scene = BattleScene(size: view.bounds.size)
+    let skView = view as! SKView
+    skView.ignoresSiblingOrder = true
+    scene.scaleMode = .resizeFill
+    skView.presentScene(scene, transition: SKTransition.crossFade(withDuration: 4.0))
+}
+
 func gameSceneLoad(view: UIView) {
     let scene = GameScene(size: view.bounds.size)
     let skView = view as! SKView

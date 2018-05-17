@@ -142,12 +142,9 @@ class GameScene: SKScene {
     // callRandomEvent takes a CGFloat between 0 and 100, and based on the CGFloat, calls an event
     func callRandomEvent(percentage: CGFloat) {
         if percentage <= 50 {
-            battleEvent()
+            // TODO: Pass different enemies to battle event based on percentage
+            battleSceneLoad(view: view!)
         }
-    }
-    
-    func battleEvent() {
-        
     }
     
     
@@ -209,7 +206,11 @@ class GameScene: SKScene {
             updateBackground()
             
             // Increases chances of a random event the longer you move forward. Counter resets when random event is called
-            if (min(counter, 600) > arc4random_uniform(1200)) {
+            
+            let arc4 = arc4random_uniform(50000)
+            print("\(arc4)")
+            if (min(counter, 600) > arc4) {
+                print("counter: \(counter)")
                 counter = 0
                 callRandomEvent(percentage: random(min: 0, max: 100))
             }

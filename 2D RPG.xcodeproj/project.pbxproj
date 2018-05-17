@@ -23,6 +23,8 @@
 		5580EAF920AA34A000304895 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5580EAF820AA34A000304895 /* GameOverScene.swift */; };
 		55B0335520AB9AE100A40BA5 /* BattleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B0335420AB9AE100A40BA5 /* BattleScene.swift */; };
 		55B0335820AB9C3E00A40BA5 /* Free-GUI-Buttons-039.wav in Resources */ = {isa = PBXBuildFile; fileRef = 55B0335720AB9C3E00A40BA5 /* Free-GUI-Buttons-039.wav */; };
+		55B0335A20AE0A9600A40BA5 /* Enemy1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B0335920AE0A9600A40BA5 /* Enemy1.swift */; };
+		55B0335C20AE155600A40BA5 /* FTButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B0335B20AE155600A40BA5 /* FTButtonNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +67,8 @@
 		5580EAF820AA34A000304895 /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 		55B0335420AB9AE100A40BA5 /* BattleScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleScene.swift; sourceTree = "<group>"; };
 		55B0335720AB9C3E00A40BA5 /* Free-GUI-Buttons-039.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Free-GUI-Buttons-039.wav"; sourceTree = "<group>"; };
+		55B0335920AE0A9600A40BA5 /* Enemy1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enemy1.swift; sourceTree = "<group>"; };
+		55B0335B20AE155600A40BA5 /* FTButtonNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FTButtonNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,7 +127,9 @@
 				5580EAF820AA34A000304895 /* GameOverScene.swift */,
 				5580EAC220A91A0500304895 /* GameViewController.swift */,
 				5580EAEE20AA344800304895 /* Player.swift */,
+				55B0335920AE0A9600A40BA5 /* Enemy1.swift */,
 				5580EAF020AA346B00304895 /* PhysicsCategory.swift */,
+				55B0335B20AE155600A40BA5 /* FTButtonNode.swift */,
 				5580EAF220AA347300304895 /* Helpers.swift */,
 				5580EAF420AA347900304895 /* GameData.swift */,
 				5580EAF620AA347F00304895 /* UserDefaultExt.swift */,
@@ -293,8 +299,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				5580EAEF20AA344800304895 /* Player.swift in Sources */,
+				55B0335C20AE155600A40BA5 /* FTButtonNode.swift in Sources */,
 				5580EAF320AA347300304895 /* Helpers.swift in Sources */,
 				55B0335520AB9AE100A40BA5 /* BattleScene.swift in Sources */,
+				55B0335A20AE0A9600A40BA5 /* Enemy1.swift in Sources */,
 				5580EAC120A91A0500304895 /* GameScene.swift in Sources */,
 				5580EAF120AA346B00304895 /* PhysicsCategory.swift in Sources */,
 				5580EAF720AA347F00304895 /* UserDefaultExt.swift in Sources */,

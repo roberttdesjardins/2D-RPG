@@ -11,9 +11,6 @@ import GameplayKit
 
 class BattleScene: SKScene {
     let worldNode = SKNode()
-    var runButton: SKSpriteNode! = nil
-    var attack1Button: SKSpriteNode! = nil
-    var attack2Button: SKSpriteNode! = nil
     
     override func sceneDidLoad() {
         addChild(worldNode)
@@ -21,62 +18,36 @@ class BattleScene: SKScene {
     }
     
     func createUI() {
-        // TODO: put in actual size
-        let runButtonSize = CGSize(width: 100, height: 40)
-        let runButtonPosition = CGPoint(x: runButtonSize.width/2, y: size.height - runButtonSize.height/2)
+        let runButtonFontSize : CGFloat = 36
+        let runButtonPosition = CGPoint(x: 0, y: size.height)
         
-        let attack1ButtonSize = CGSize(width: 100, height: 40)
-        let attack1ButtonPosition = CGPoint(x: size.width/4, y: attack1ButtonSize.height)
+        let attack1ButtonFontSize : CGFloat = 36
+        let attack1ButtonPosition = CGPoint(x: size.width/4, y: 0)
         
-        let attack2ButtonSize = CGSize(width: 100, height: 40)
-        let attack2ButtonPosition = CGPoint(x: size.width * (3/4), y: attack2ButtonSize.height)
+        let attack2ButtonFontSize : CGFloat = 36
+        let attack2ButtonPosition = CGPoint(x: size.width * (3/4), y: 0)
         
-        createRunButton(position: runButtonPosition, size: runButtonSize)
-        createAttack1Button(position: attack1ButtonPosition, size: attack1ButtonSize, text: GameData.shared.playerAttack1)
-        createAttack2Button(position: attack2ButtonPosition, size: attack2ButtonSize, text: GameData.shared.playerAttack2)
+        createButton(position: runButtonPosition, fontSize: runButtonFontSize, text: "Run!")
+        createButton(position: attack1ButtonPosition, fontSize: attack1ButtonFontSize, text: GameData.shared.playerAttack1)
+        createButton(position: attack2ButtonPosition, fontSize: attack2ButtonFontSize, text: GameData.shared.playerAttack2)
     }
     
-    func createRunButton(position: CGPoint, size: CGSize) {
-        runButton = SKSpriteNode(imageNamed: "")
-        runButton.zPosition = 2
-        runButton.size = size
-        runButton.position = position
-        worldNode.addChild(runButton)
+    func createButton(position: CGPoint, fontSize: CGFloat, text: String) {
+        let buttonTexture: SKTexture! = SKTexture(imageNamed: "button")
+        let buttonTextureSelected: SKTexture! = SKTexture(imageNamed: "buttonSelected.png")
+        let button = FTButtonNode(normalTexture: buttonTexture, selectedTexture: buttonTextureSelected, disabledTexture: buttonTexture)
+        button.setButtonAction(target: self, triggerEvent: .TouchUpInside, action: #selector(BattleScene.runButtonTap))
+        button.setButtonLabel(title: text as NSString, font: "Arial", fontSize: fontSize)
+        button.position = position
+        button.zPosition = 2
+        button.name = "button"
+        self.addChild(button)
     }
     
-    // TODO: Put in attack text ontop of blank button?
-    func createAttack1Button(position: CGPoint, size: CGSize, text: String) {
-        attack1Button = SKSpriteNode(imageNamed: "")
-        attack1Button.zPosition = 2
-        attack1Button.size = size
-        attack1Button.position = position
-        worldNode.addChild(attack1Button)
-    }
-    
-    // TODO: Put in attack text ontop of blank button?
-    func createAttack2Button(position: CGPoint, size: CGSize, text: String) {
-        attack2Button = SKSpriteNode(imageNamed: "")
-        attack2Button.zPosition = 2
-        attack2Button.size = size
-        attack2Button.position = position
-        worldNode.addChild(attack2Button)
+    @objc func runButtonTap() {
+        print("Run Button Tapped")
+        playButtonPressSound()
     }
     
     
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let touch = touches.first
-        let touchLocation = touch!.location(in: self)
-        if runButton.contains(touchLocation) {
-            playButtonPressSound()
-            //TODO: Code to run
-        }
-        if attack1Button.contains(touchLocation) {
-            playButtonPressSound()
-            //TODO: Code to attack1
-        }
-        if attack2Button.contains(touchLocation) {
-            playButtonPressSound()
-            //TODO: Code to attack2
-        }
-    }
 }

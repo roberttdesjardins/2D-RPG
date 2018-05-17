@@ -13,6 +13,7 @@ import UIKit
 class GameData {
     static let shared = GameData()
     var kPlayerName = "playerName"
+    var kEnemy1Name = "enemy1Name"
     var deviceWidth = UIScreen.main.bounds.size.width
     var deviceHeight = UIScreen.main.bounds.size.height
     
