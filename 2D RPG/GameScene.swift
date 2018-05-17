@@ -28,6 +28,7 @@ class GameScene: SKScene {
     private var scoreLabel = SKLabelNode(fontNamed: "Avenir")
     
     private var lastUpdateTime : TimeInterval = 0
+    private var counter : Int = 0
     
     private var playerStateChanged = true
     private var touchToMove = false
@@ -126,7 +127,6 @@ class GameScene: SKScene {
         player.run(SKAction.repeatForever(SKAction.animate(with: gifRunning, timePerFrame: 0.07)))
     }
     
-    
     func choosePlayerAnimation() {
         if let player = worldNode.childNode(withName: GameData.shared.kPlayerName) as? Player{
             if touchToMove {
@@ -135,6 +135,19 @@ class GameScene: SKScene {
                 playerIdleAnim(player: player)
             }
         }
+    }
+    
+    
+    // EVENTS
+    // callRandomEvent takes a CGFloat between 0 and 100, and based on the CGFloat, calls an event
+    func callRandomEvent(percentage: CGFloat) {
+        if percentage <= 50 {
+            battleEvent()
+        }
+    }
+    
+    func battleEvent() {
+        
     }
     
     
@@ -179,6 +192,7 @@ class GameScene: SKScene {
         
         // Calculate time since last update
         //let dt = currentTime - self.lastUpdateTime
+
         
         if playerStateChanged {
             if let player = worldNode.childNode(withName: GameData.shared.kPlayerName) as? Player{
@@ -190,8 +204,15 @@ class GameScene: SKScene {
         
         if touchToMove {
             GameData.shared.playerScore = GameData.shared.playerScore + 1
+            counter = counter + 1
             updateHud()
             updateBackground()
+            
+            // Increases chances of a random event the longer you move forward. Counter resets when random event is called
+            if (min(counter, 600) > arc4random_uniform(1200)) {
+                counter = 0
+                callRandomEvent(percentage: random(min: 0, max: 100))
+            }
         }
         
     }
