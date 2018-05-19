@@ -18,6 +18,8 @@
 // Give player health
 // Create monsters which are passed to BattleScene
 // Create Inventory
+// Learn how to add constraits in scene
+// Make harder enemies appear more often the further along the player gets
 
 import SpriteKit
 import GameplayKit
@@ -26,6 +28,7 @@ class GameScene: SKScene {
     let worldNode = SKNode()
     
     private var scoreLabel = SKLabelNode(fontNamed: "Avenir")
+    private var healthLabel = SKLabelNode(fontNamed: "Avenir")
     
     private var lastUpdateTime : TimeInterval = 0
     private var counter : Int = 0
@@ -69,7 +72,6 @@ class GameScene: SKScene {
         scoreLabel.fontColor = SKColor.white
         scoreLabel.text = String("Score: \(GameData.shared.playerScore)")
         
-        //TODO: Test this on iphoneX
         if UIScreen.main.nativeBounds.height == 2436.0 {
             scoreLabel.position = CGPoint(x: 0, y: size.height - (scoreLabel.frame.size.height + 22))
         } else {
@@ -78,8 +80,17 @@ class GameScene: SKScene {
         
         scoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         scoreLabel.zPosition = 20
-        addChild(scoreLabel)
+        worldNode.addChild(scoreLabel)
+        
+        healthLabel.fontSize = 15
+        healthLabel.fontColor = SKColor.white
+        healthLabel.text = String("Health: \(GameData.shared.playerHealth)")
+        
+        healthLabel.position = scoreLabel.position - CGPoint(x: 0, y: healthLabel.frame.size.height)
+        healthLabel.zPosition = 20
+        worldNode.addChild(healthLabel)
     }
+    
     
     func updateHud(){
         scoreLabel.text = String("Score: \(GameData.shared.playerScore)")
@@ -106,33 +117,16 @@ class GameScene: SKScene {
         player.initPlayer()
         player.position = CGPoint(x: size.width * (1/4), y: size.height * (1/6))
         worldNode.addChild(player)
-        playerIdleAnim(player: player)
+        player.playerIdleAnim(player: player)
     }
     
-    func playerIdleAnim(player: Player) {
-        player.size.width = 38
-        var gifIdle: [SKTexture] = []
-        for i in 0...3 {
-            gifIdle.append(SKTexture(imageNamed: "player_idle_frame_\(i)_delay-0.13s"))
-        }
-        player.run(SKAction.repeatForever(SKAction.animate(with: gifIdle, timePerFrame: 0.13)))
-    }
-    
-    func playerRunningAnim(player: Player) {
-        player.size.width = 66
-        var gifRunning: [SKTexture] = []
-        for i in 0...11 {
-            gifRunning.append(SKTexture(imageNamed: "player_running_frame_\(i)_delay-0.07s"))
-        }
-        player.run(SKAction.repeatForever(SKAction.animate(with: gifRunning, timePerFrame: 0.07)))
-    }
     
     func choosePlayerAnimation() {
         if let player = worldNode.childNode(withName: GameData.shared.kPlayerName) as? Player{
             if touchToMove {
-                playerRunningAnim(player: player)
+                player.playerRunningAnim(player: player)
             } else {
-                playerIdleAnim(player: player)
+                player.playerIdleAnim(player: player)
             }
         }
     }
@@ -142,7 +136,23 @@ class GameScene: SKScene {
     // callRandomEvent takes a CGFloat between 0 and 100, and based on the CGFloat, calls an event
     func callRandomEvent(percentage: CGFloat) {
         if percentage <= 50 {
-            // TODO: Pass different enemies to battle event based on percentage
+            // TODO: Change code to make adding enemies easier
+            if percentage <= 10 {
+                print("Encounter enemy1")
+                GameData.shared.currentEnemy = GameData.shared.kEnemy1Name
+            } else if percentage <= 20 {
+                print("Encounter enemy2")
+                GameData.shared.currentEnemy = GameData.shared.kEnemy2Name
+            } else if percentage <= 30 {
+                print("Encounter enemy3")
+                GameData.shared.currentEnemy = GameData.shared.kEnemy3Name
+            } else if percentage <= 40 {
+                print("Encounter enemy4")
+                GameData.shared.currentEnemy = GameData.shared.kEnemy4Name
+            } else {
+                print("Encounter enemy5")
+                GameData.shared.currentEnemy = GameData.shared.kEnemy5Name
+            }
             battleSceneLoad(view: view!)
         }
     }

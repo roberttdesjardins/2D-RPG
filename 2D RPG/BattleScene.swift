@@ -18,34 +18,69 @@ class BattleScene: SKScene {
     }
     
     func createUI() {
-        let runButtonFontSize : CGFloat = 36
-        let runButtonPosition = CGPoint(x: 0, y: size.height)
-        
-        let attack1ButtonFontSize : CGFloat = 36
-        let attack1ButtonPosition = CGPoint(x: size.width/4, y: 0)
-        
-        let attack2ButtonFontSize : CGFloat = 36
-        let attack2ButtonPosition = CGPoint(x: size.width * (3/4), y: 0)
-        
-        createButton(position: runButtonPosition, fontSize: runButtonFontSize, text: "Run!")
-        createButton(position: attack1ButtonPosition, fontSize: attack1ButtonFontSize, text: GameData.shared.playerAttack1)
-        createButton(position: attack2ButtonPosition, fontSize: attack2ButtonFontSize, text: GameData.shared.playerAttack2)
+        createButton(text: "Run!")
+        createButton(text: GameData.shared.playerAttack1)
+        createButton(text: GameData.shared.playerAttack2)
     }
     
-    func createButton(position: CGPoint, fontSize: CGFloat, text: String) {
+    func createEnemy() {
+        if GameData.shared.currentEnemy == GameData.shared.kEnemy1Name {
+            let enemy:Enemy1 = Enemy1(imageNamed: "")
+        }
+        if GameData.shared.currentEnemy == GameData.shared.kEnemy2Name {
+            //let enemy:Enemy1 = Enemy1(imageNamed: "")
+        }
+        if GameData.shared.currentEnemy == GameData.shared.kEnemy3Name {
+            //let enemy:Enemy1 = Enemy1(imageNamed: "")
+        }
+        if GameData.shared.currentEnemy == GameData.shared.kEnemy4Name {
+            //let enemy:Enemy1 = Enemy1(imageNamed: "")
+        }
+        if GameData.shared.currentEnemy == GameData.shared.kEnemy5Name {
+            //let enemy:Enemy1 = Enemy1(imageNamed: "")
+        }
+    }
+    
+    func createButton(text: String) {
         let buttonTexture: SKTexture! = SKTexture(imageNamed: "button")
         let buttonTextureSelected: SKTexture! = SKTexture(imageNamed: "buttonSelected.png")
         let button = FTButtonNode(normalTexture: buttonTexture, selectedTexture: buttonTextureSelected, disabledTexture: buttonTexture)
-        button.setButtonAction(target: self, triggerEvent: .TouchUpInside, action: #selector(BattleScene.runButtonTap))
-        button.setButtonLabel(title: text as NSString, font: "Arial", fontSize: fontSize)
-        button.position = position
+        
+        if (text == "Run!") {
+            button.setButtonAction(target: self, triggerEvent: .TouchUpInside, action: #selector(BattleScene.runButtonTapped))
+            button.position = CGPoint(x: button.size.width/2, y: size.height - button.size.height)
+        } else if (text == GameData.shared.playerAttack1) {
+            button.setButtonAction(target: self, triggerEvent: .TouchUpInside, action: #selector(BattleScene.attack1ButtonTapped))
+            button.position = CGPoint(x: size.width/4, y: button.size.height)
+        } else if (text == GameData.shared.playerAttack2) {
+            button.setButtonAction(target: self, triggerEvent: .TouchUpInside, action: #selector(BattleScene.attack2ButtonTapped))
+            button.position = CGPoint(x: size.width * (3/4), y: button.size.height)
+        }
+        
+        
+        button.setButtonLabel(title: text as NSString, font: "Arial", fontSize: GameData.shared.battleSceneButtonFontSize)
         button.zPosition = 2
         button.name = "button"
         self.addChild(button)
     }
     
-    @objc func runButtonTap() {
+    @objc func runButtonTapped() {
         print("Run Button Tapped")
+        playButtonPressSound()
+        playerRun()
+    }
+    
+    func playerRun() {
+        
+    }
+    
+    @objc func attack1ButtonTapped() {
+        print("\(GameData.shared.playerAttack1) Button Tapped")
+        playButtonPressSound()
+    }
+    
+    @objc func attack2ButtonTapped() {
+        print("\(GameData.shared.playerAttack2) Button Tapped")
         playButtonPressSound()
     }
     

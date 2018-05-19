@@ -13,7 +13,7 @@ import AVFoundation
 
 class Player: SKSpriteNode {
     
-    var runSpeed:CGFloat =  3
+    var playerHealth:CGFloat = 0
     var playerWidth:CGFloat = 38
     var playerHeight:CGFloat = 48
     
@@ -28,5 +28,23 @@ class Player: SKSpriteNode {
         self.physicsBody?.categoryBitMask = PhysicsCategory.Player
         self.physicsBody?.contactTestBitMask = PhysicsCategory.Edge
         self.physicsBody?.collisionBitMask = PhysicsCategory.Edge
+    }
+    
+    func playerIdleAnim(player: Player) {
+        player.size.width = 38
+        var gifIdle: [SKTexture] = []
+        for i in 0...3 {
+            gifIdle.append(SKTexture(imageNamed: "player_idle_frame_\(i)_delay-0.13s"))
+        }
+        player.run(SKAction.repeatForever(SKAction.animate(with: gifIdle, timePerFrame: 0.13)))
+    }
+    
+    func playerRunningAnim(player: Player) {
+        player.size.width = 66
+        var gifRunning: [SKTexture] = []
+        for i in 0...11 {
+            gifRunning.append(SKTexture(imageNamed: "player_running_frame_\(i)_delay-0.07s"))
+        }
+        player.run(SKAction.repeatForever(SKAction.animate(with: gifRunning, timePerFrame: 0.07)))
     }
 }
